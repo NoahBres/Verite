@@ -20,21 +20,24 @@ function walkBackString(str) {
 // Takes string
 // Returns array of tokens
 function tokenize(toTokenize) {
+  if(toTokenize == '')
+	return ['', Token.BREAK];
+
 	let tokenized = [];
 
   let split = toTokenize.split(/(\s)/g);//toTokenize.split(' ');
   for(let i = 0; i < split.length; i++) {
-    let item = [];
-    let currentString = split[i];
-    let currentToken = Token.COMMENT;
+	let item = [];
+	let currentString = split[i];
+	let currentToken = Token.COMMENT;
 
-    // Used to tokenize non-trivial items
-    let ignorePush = false;
+	// Used to tokenize non-trivial items
+	let ignorePush = false;
 
-    // Check if space
-    if(currentString == ' ') {
-      currentToken = Token.SPACE;
-    // If characters contain a colon at the end it's a variable
+	// Check if space
+	if(currentString == ' ') {
+	  currentToken = Token.SPACE;
+	// If characters contain a colon at the end it's a variable
 		} else if(currentString.slice(-1) == ':') {
 			currentToken = Token.VARIABLE;
 		// Check if current string is parantheses
@@ -59,27 +62,43 @@ function tokenize(toTokenize) {
 		} else if(i < split.length - 2 && split[i + 1] == '=') {//(splitSplit[j + 1] == '=' ||splitSplit[j + 1] == 'is')) {
 			currentToken = Token.VARIABLE;
 		// Check if string has a number with modifiers ($, %, etc)
-		} else if(!isNaN(stripCharFromString(currentString, numberModifier))) {
-      ignorePush = true;
+	} else if(!isNaN(stripCharFromString(currentString, numberModifier))) {
+	  ignorePush = true;
 			
-      let arr = currentString.split(/(\$|\%)/);
-      arr = arr.filter(j => j != "");
+	  let arr = currentString.split(/(\$|\%)/);
+	  arr = arr.filter(j => j != "");
 
-      for(i of arr) {
-        if(!isNaN(i)) tokenized.push([i, Token.NUMBER]);
-        else tokenized.push([i, Token.NUM_MODIFIER]);
-      }
-      
-      //currentToken = Token.NUMBER;
+	  for(let i of arr) {
+		if(!isNaN(i)) tokenized.push([i, Token.NUMBER]);
+		else tokenized.push([i, Token.NUM_MODIFIER]);
+	  }
+	  
+	  //currentToken = Token.NUMBER;
+	// Check if string has of before it. If so, it's probably a variable
 		} else if(i > 0 && walkBackString(split.slice(0, i)) == 'of') {
-      currentToken = Token.VARIABLE;
-    }
+	  currentToken = Token.VARIABLE;
+	// Check if a string has a operator or word operator after it. Then it's probably a variable
+	} else if(i < split.length - 1 && isNaN(currentString[0])) {
+	  let lookAhead = walkForwardString(split.slice(i + 1));
+	  if((~operators.indexOf(lookAhead) || ~wordOperators.indexOf(lookAhead)))
+		currentToken = Token.VARIABLE;
+	} else if(!isNaN(stripStringFromString(currentString, units))) {
+	  ignorePush = true;
 
-    if(!ignorePush) {
-      item.push(currentString, currentToken);
-    }
+	  let arr = currentString.match(/[a-z]+|[^a-z]+/gi);
+	  
+	  for(let i of arr) {
+		if(!isNaN(i)) tokenized.push([i, Token.NUMBER]);
+		else tokenized.push([i, Token.UNIT]);
+	  }
+	}
 
-    tokenized.push(item);
+	if(!ignorePush) {
+	  item.push(currentString, currentToken);
+	}
+
+	if(item.length > 0)
+	  tokenized.push(item);
   }
 
   return tokenized;
