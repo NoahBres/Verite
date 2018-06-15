@@ -58,24 +58,40 @@ body {
 	min-width: 250px;
 }
 
-.word-operator {
-	color: #3587BD;
-}
+.comment {
 
-.variable {
-	color: #FEAB41;
-}
-
-.unit {
-	color: #BED6E1;
 }
 
 .number {
 	color: red;
 }
 
+.operator {
+
+}
+
+.word-operator {
+	color: #3587BD;
+}
+
+.unit {
+	color: #BED6E1;
+}
+
+.variable {
+	color: #FEAB41;
+}
+
+.constant {
+	color: blue;
+}
+
 .parantheses {
 	color: orange;
+}
+
+.num-modifier {
+	color: pink;
 }
 
 /* div.editable {
