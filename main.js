@@ -1,10 +1,13 @@
 // TODO Implement fancy variable stuff / is handling later
 
+const p = new Parser();
+
 const editor = new Editor({
 	inputElement: 'editor',
 	shadowElement: 'shadow-editor',
 	gutterElement: 'gutter',
-	outputElement: 'output'
+	outputElement: 'output',
+	parser: p
 });
 
 /* 

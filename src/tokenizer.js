@@ -6,19 +6,19 @@ const units = [
 	'ml',
 	'tsp',
 	'$',
-	'USD',
-	'GBP',
-	'Euro',
+	'usd',
+	'gbp',
+	'euro',
 	'cm',
 	'days',
 	'rad',
-	'deg',
+	'deg'
 ];
 
-const wordOperators = ['in', 'of', 'what', 'is', 'to', 'sum', 'times'];
+const wordOperators = ['in', 'of', 'what', 'is', 'to', 'sum', 'times', 'plus'];
 const operators = ['+', '-', '*', 'x', '/', '%', '='];
 const constants = ['today', 'pi'];
-const numberModifier = ['%', '$'];
+const numberModifier = ['%'];
 
 // TokenValue: css-tag name
 const Token = {
@@ -141,7 +141,7 @@ class Tokenizer {
 			let ignorePush = false;
 
 			// Check if space
-			if (currentString == ' ') {
+			if (currentString == ' ' || currentString == '') {
 				currentToken = Token.SPACE;
 				// If characters contain a colon at the end it's a variable
 			} else if (currentString.slice(-1) == ':') {
@@ -189,10 +189,12 @@ class Tokenizer {
 				let lookAhead = Tokenizer.walkForwardString(split.slice(i + 1));
 				if (~operators.indexOf(lookAhead) || ~wordOperators.indexOf(lookAhead))
 					currentToken = Token.VARIABLE;
-			} else if (!isNaN(Tokenizer.stripStringFromString(currentString, units))) {
+			} else if (!isNaN(Tokenizer.stripStringFromString(currentString.toLowerCase(), units))) {
 				ignorePush = true;
 
-				let arr = currentString.match(/[a-z]+|[^a-z]+/gi);
+				//let arr = currentString.match(/[a-z]+|[^a-z]+/gi);
+				let arr = currentString.split(/(\d+)/g);
+				arr = arr.filter(e => e != '');
 
 				for (let i of arr) {
 					if (!isNaN(i)) tokenized.push([i, Token.NUMBER]);
