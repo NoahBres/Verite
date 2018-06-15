@@ -17,7 +17,7 @@ const units = [
 const wordOperators = ['in', 'of', 'what', 'is', 'to', 'sum', 'times'];
 const operators = ['+', '-', '*', 'x', '/', '%', '='];
 const constants = ['today', 'pi'];
-const numberModifier = ['%'];
+const numberModifier = ['%', '$'];
 
 // TokenValue: css-tag name
 const Token = {
@@ -154,7 +154,7 @@ function tokenize(toTokenize) {
 			}
 
 			//currentToken = Token.NUMBER;
-			// Check if string has of before it. If so, it's probably a variable
+		// Check if string has of before it. If so, it's probably a variable
 		} else if (i > 0 && walkBackString(split.slice(0, i)) == 'of') {
 			currentToken = Token.VARIABLE;
 			// Check if a string has a operator or word operator after it. Then it's probably a variable

@@ -1,5 +1,5 @@
 body {
-	background: #2B2C31;
+	background: #262626;
 }
 
 .wrapper {
@@ -63,7 +63,7 @@ body {
 }
 
 .number {
-	color: red;
+	color: #fff;
 }
 
 .operator {
@@ -71,27 +71,27 @@ body {
 }
 
 .word-operator {
-	color: #3587BD;
+	color: #4acbff;
 }
 
 .unit {
-	color: #BED6E1;
+	color: #a1c4dc;
 }
 
 .variable {
-	color: #FEAB41;
+	color: #ffb52c;
 }
 
 .constant {
-	color: blue;
+	
 }
 
 .parantheses {
-	color: orange;
+	color: #F78C6C;
 }
 
 .num-modifier {
-	color: pink;
+	color: #fff;
 }
 
 /* div.editable {
