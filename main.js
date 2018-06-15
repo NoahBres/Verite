@@ -8,6 +8,9 @@ const shadowEditor = document.getElementById('shadow-editor');
 const gutter = document.getElementById('gutter');
 let gutterLength = -1;
 
+// Output
+const output = document.getElementById('output');
+
 function updateGutter() {
 	//const editorLength = Math.max(shadowEditor.childNodes.length, 1);
 	//const editorLength = Math.max(editor.childNodes.length, 1);
@@ -25,6 +28,7 @@ function updateGutter() {
 			const newDiv = document.createElement('div');
 			newDiv.className = 'gutter-num';
 			newDiv.innerHTML = `${i + 1}.`;
+			newDiv.dataset.pos = i + 1;
 			toAdd.appendChild(newDiv);
 			gutter.appendChild(toAdd);
 		}
@@ -61,16 +65,30 @@ editor.addEventListener('input', function() {
 
 	let tokenizedText = [];
 
-	console.log('Split text:');
-	console.log(splitText);
-	console.log('Tokenized');
 	for(let i of splitText) {
 		tokenizedText.push(tokenize(i));
 	}
-	console.log(tokenizedText);
 
 	shadowEditor.innerHTML = highlightTokenize(tokenizedText);
 });
+
+gutter.addEventListener('mouseover', function(e) {
+	if(e.target.id == 'gutter')
+		return;
+	let hoverPos = e.target.dataset.pos;
+	if(hoverPos <= output.children.length) {
+		output.children[hoverPos - 1].classList = 'output-line highlight';
+	}
+}, false);
+
+gutter.addEventListener('mouseout', function(e) {
+	if(e.target.id == 'gutter')
+		return;
+	let hoverPos = e.target.dataset.pos;
+	if(hoverPos <= output.children.length) {
+		output.children[hoverPos - 1].classList = 'output-line';
+	}
+}, false);
 
 /* 
 Price: $10

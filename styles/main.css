@@ -9,7 +9,6 @@ body {
 }
 
 .editor-wrap {
-/* 	background: red; */
 	width: 70%;
 	overflow: auto;
 	padding-left: 2em;
@@ -33,7 +32,6 @@ body {
 }
 
 #editor, #shadow-editor {
-/* 	background: pink; */
 	color: transparent;
 	caret-color: #fff;
 	padding: 1em;
@@ -53,9 +51,25 @@ body {
 }
 
 #output {
-/* 	background: blue; */
 	width: 30%;
 	min-width: 250px;
+	padding: 1em;	
+	padding-right: 3em;
+}
+
+#output .output-line {
+	margin: -0.66em 0;
+	color: #7BD445;
+	font-weight: bold;
+	letter-spacing: 0.03em;
+	text-align: right;
+
+	transition: 300ms ease;
+}
+
+#output .output-line.highlight {
+	color: #fff;
+	transform: translateX(-4px);
 }
 
 .comment {
