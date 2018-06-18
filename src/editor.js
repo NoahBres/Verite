@@ -1,4 +1,6 @@
-class Editor {
+import { Tokenizer } from './tokenizer.js'
+
+export class Editor {
 	constructor({
 		inputElement,
 		shadowElement,
@@ -76,7 +78,7 @@ class Editor {
 		this.shadowElem.innerHTML = Tokenizer.highlightTokenize(tokenizedText);
 	
 		if(this.parser) {
-			p.feedLine(tokenizedText[0]);
+			this.parser.feedLine(tokenizedText[0]);
 		}
 	}
 }

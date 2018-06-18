@@ -21,7 +21,7 @@ const constants = ['today', 'pi'];
 const numberModifier = ['%'];
 
 // TokenValue: css-tag name
-const Token = {
+export const Token = {
 	SHOW_BUT_NOT_CATEGORIZED: 'show-but-not-catergorized',
 	SPACE: 'space',
 	BREAK: 'break',
@@ -36,7 +36,7 @@ const Token = {
 	NUM_MODIFIER: 'num-modifier',
 };
 
-class Tokenizer {
+export class Tokenizer {
 	constructor() {
 
 	}

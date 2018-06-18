@@ -1,3 +1,6 @@
+import { Tokenizer, Token } from './tokenizer.js'
+import { Variable } from './Variable.js'
+
 const ParserUnits = [
 	'num',
 	'length',
@@ -35,9 +38,9 @@ const UnitTable = {
 	// Currency
 	'usd': 'currency',
 	'euro': 'currency'
-}
+};
 
-class Parser {
+export class Parser {
 	constructor() {
 		this.variables = {
 
@@ -114,3 +117,5 @@ class Parser {
 		}
 	}
 }
+
+//xx555xgf533423

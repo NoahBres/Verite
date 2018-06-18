@@ -1,5 +1,8 @@
 // TODO Implement fancy variable stuff / is handling later
 
+import { Editor } from './src/editor.js'
+import { Parser } from './src/parser.js'
+
 const p = new Parser();
 
 const editor = new Editor({
